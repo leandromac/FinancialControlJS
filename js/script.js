@@ -9,11 +9,12 @@ const inputTransactionAmount = document.querySelector('#amount')
 const localStorageTransactions = JSON.parse(localStorage
   .getItem('transactions'))
 let transactions = localStorage
-.getItem('transactions') !== null ? localStorageTransactions : []
+  .getItem('transactions') !== null ? localStorageTransactions : []
 
 const removeTransaction = ID => {
   transactions = transactions
   .filter(transaction => transaction.id !== ID)
+  updateLocalStorage()
   init()
 }
 
@@ -25,8 +26,7 @@ const addTransactionIntoDOM = transaction => {
 
   li.classList.add(cssClass)
   li.innerHTML =
-    transaction.name +'<span>'+ operator + 'R$' + amountWithoutOperator + '</span>'+
-    '<button class="delete-btn" onClick="removeTransaction(${transaction.id})">x</button>'
+    transaction.name +'<span>'+ operator + 'R$' + amountWithoutOperator + '</span>'+'<button class="delete-btn" onClick="removeTransaction('+ transaction.id +')">x</button>'
   transactionsUl.append(li)
 }
 
