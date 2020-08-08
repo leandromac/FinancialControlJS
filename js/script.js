@@ -6,6 +6,7 @@
   const form = document.querySelector('#form');
   const inputTransactionName = document.querySelector('#text');
   const inputTransactionAmount = document.querySelector('#amount');
+  const inputTransactionDate = document.querySelector('#date');
 
   const localStorageTransactions = JSON.parse(localStorage
     .getItem('transactions'));
@@ -27,7 +28,9 @@
 
     li.classList.add(cssClass);
     li.innerHTML =
-      transaction.name +'<span>'+ operator + 'R$' + amountWithoutOperator + '</span>'+'<button class="delete-btn" onClick="removeTransaction('+ transaction.id +')">x</button>'
+      `${transaction.name} <small style="font-size:10px">  ${transaction.date} </small>
+      <span> ${operator}  R$  ${amountWithoutOperator} </span>
+      <button class="delete-btn" onClick="removeTransaction(${transaction.id})">x</button>`;
     transactionsUl.append(li);
   };
 
@@ -69,19 +72,26 @@
     event.preventDefault();
 
     const transactionName = inputTransactionName.value.trim();
-    const transactionAmount = inputTransactionAmount.value.trim();
-    
+    const transactionAmount = inputTransactionAmount.value.trim()
+    const transactionDate = inputTransactionDate.value.trim();
+
     if(transactionName === '') {
-      alert('Preencha o campo nome!')
+      alert('Preencha o campo nome!');
+      return
+    };
+    if (transactionDate === '') {
+      alert('Preencha o campo data!');
       return
     };
     if (transactionAmount === '') {
-      alert('Preencha o campo valor!')
+      alert('Preencha o campo valor!');
+      return
     };
 
     const transaction = {
       id: generateID(),
       name: transactionName,
+      date: transactionDate,
       amount: Number(transactionAmount)
     };
 
@@ -91,6 +101,7 @@
 
     inputTransactionName.value = '';
     inputTransactionAmount.value = '';
+    inputTransactionDate.value = '';
 
   };
 
