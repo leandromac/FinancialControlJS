@@ -101,7 +101,7 @@
 
     inputTransactionName.value = '';
     inputTransactionAmount.value = '';
-    inputTransactionDate.value = '';
+    inputTransactionDate.value = '2017/06/01';
 
   };
 
